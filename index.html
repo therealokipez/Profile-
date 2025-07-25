@@ -269,45 +269,9 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- IMAGE INPUT SECTION - Add your image URL here -->
-        <div class="image-input-section">
-            <h3>📸 Add Your Profile Image</h3>
-            <input type="url" 
-                   id="imageUrlInput" 
-                   class="image-url-input" 
-                   placeholder="Paste your image URL here (e.g., https://example.com/therealokipez.jpg)"
-                   value="">
-            <br>
-            <button class="load-image-btn" onclick="loadImageFromUrl()">Load Image</button>
-            <div class="image-instructions">
-                💡 <strong>Instructions:</strong><br>
-                1. Upload your image to a hosting service (Google Drive, Imgur, etc.)<br>
-                2. Copy the direct image URL<br>
-                3. Paste it above and click "Load Image"<br>
-                4. Or use the camera button to upload directly
-            </div>
-        </div>
-
-        <div class="profile-image-container">
-            <div class="profile-image" id="profileImage">
-                <!-- 
-                =====================================================
-                IMAGE INPUT SPACE - REPLACE WITH YOUR IMAGE URL
-                =====================================================
-                
-                Option 1: Replace the "OEI" text below with:
-                <img src="https://your-image-url.com/therealokipez.jpg" alt="therealokipez Profile Picture">
-                
-                Option 2: Use the input field above to add your image dynamically
-                
-                ===================================================== 
-                -->
-                OEI
-            </div>
-            <button class="upload-btn" onclick="document.getElementById('imageInput').click()">📷</button>
-            <input type="file" id="imageInput" accept="image/*" onchange="uploadImage(event)" name="therealokipez">
-        </div>
+ 
+           <img src="therealokipez.jpg" alt="Profile Picture" data-testid="profilePicture">
+            
         
         <h1>Okikijesu Ezekiel Iyanu</h1>
         <p class="job-title">Writer | Creative Director | Software Developer | Project Manager</p>
