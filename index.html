@@ -79,84 +79,6 @@
             border-radius: 50%;
         }
 
-        .upload-btn {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .upload-btn:hover {
-            background: #5a6fd8;
-            transform: scale(1.1);
-        }
-
-        #imageInput {
-            display: none;
-        }
-
-        .image-input-section {
-            background: #f8f9fa;
-            border: 2px dashed #667eea;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .image-input-section h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .image-url-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
-            transition: border-color 0.3s ease;
-        }
-
-        .image-url-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .load-image-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .load-image-btn:hover {
-            background: #5a6fd8;
-            transform: translateY(-1px);
-        }
-
-        .image-instructions {
-            font-size: 12px;
-            color: #666;
-            margin-top: 10px;
-            line-height: 1.4;
-        }
-
         h1 {
             color: #333;
             margin-bottom: 5px;
@@ -261,17 +183,16 @@
             .bio {
                 font-size: 14px;
             }
-
-            .image-input-section {
-                padding: 15px;
-            }
         }
     </style>
 </head>
 <body>
- 
-           <img src="therealokipez.jpg" alt="Profile Picture" data-testid="profilePicture">
-            
+    <div class="container">
+        <div class="profile-image-container">
+            <div class="profile-image" id="profileImage">
+                <img src="therealokipez.jpg" alt="Profile Picture" data-testid="profilePicture">
+            </div>
+        </div>
         
         <h1>Okikijesu Ezekiel Iyanu</h1>
         <p class="job-title">Writer | Creative Director | Software Developer | Project Manager</p>
@@ -324,43 +245,6 @@
     </div>
 
     <script>
-        // Function to upload image from file input (named "therealokipez")
-        function uploadImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const profileImage = document.getElementById('profileImage');
-                    profileImage.innerHTML = `<img src="${e.target.result}" alt="therealokipez Profile Picture">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Function to load image from URL input
-        function loadImageFromUrl() {
-            const imageUrl = document.getElementById('imageUrlInput').value.trim();
-            if (imageUrl) {
-                // Basic URL validation
-                if (!imageUrl.match(/\.(jpeg|jpg|gif|png|webp)$/i) && !imageUrl.includes('drive.google.com') && !imageUrl.includes('imgur.com')) {
-                    alert('Please enter a valid image URL (jpg, png, gif, webp) or a supported hosting service link.');
-                    return;
-                }
-                
-                const profileImage = document.getElementById('profileImage');
-                profileImage.innerHTML = `<img src="${imageUrl}" alt="therealokipez Profile Picture" onerror="this.parentElement.innerHTML='❌<br>Image failed to load'">`;
-            } else {
-                alert('Please enter an image URL first.');
-            }
-        }
-
-        // Function to reset to initials
-        function resetToInitials() {
-            const profileImage = document.getElementById('profileImage');
-            profileImage.innerHTML = 'OEI';
-            document.getElementById('imageUrlInput').value = '';
-        }
-
         // Add some interactive animations
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('.social-link');
@@ -368,13 +252,6 @@
             links.forEach((link, index) => {
                 link.style.animationDelay = `${index * 0.1}s`;
                 link.classList.add('animate-in');
-            });
-
-            // Allow Enter key to load image
-            document.getElementById('imageUrlInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    loadImageFromUrl();
-                }
             });
         });
 
