@@ -104,6 +104,59 @@
             display: none;
         }
 
+        .image-input-section {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-input-section h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .image-url-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        .image-url-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .load-image-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .load-image-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .image-instructions {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
         h1 {
             color: #333;
             margin-bottom: 5px;
@@ -208,17 +261,52 @@
             .bio {
                 font-size: 14px;
             }
+
+            .image-input-section {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- IMAGE INPUT SECTION - Add your image URL here -->
+        <div class="image-input-section">
+            <h3>📸 Add Your Profile Image</h3>
+            <input type="url" 
+                   id="imageUrlInput" 
+                   class="image-url-input" 
+                   placeholder="Paste your image URL here (e.g., https://example.com/therealokipez.jpg)"
+                   value="">
+            <br>
+            <button class="load-image-btn" onclick="loadImageFromUrl()">Load Image</button>
+            <div class="image-instructions">
+                💡 <strong>Instructions:</strong><br>
+                1. Upload your image to a hosting service (Google Drive, Imgur, etc.)<br>
+                2. Copy the direct image URL<br>
+                3. Paste it above and click "Load Image"<br>
+                4. Or use the camera button to upload directly
+            </div>
+        </div>
+
         <div class="profile-image-container">
             <div class="profile-image" id="profileImage">
+                <!-- 
+                =====================================================
+                IMAGE INPUT SPACE - REPLACE WITH YOUR IMAGE URL
+                =====================================================
+                
+                Option 1: Replace the "OEI" text below with:
+                <img src="https://your-image-url.com/therealokipez.jpg" alt="therealokipez Profile Picture">
+                
+                Option 2: Use the input field above to add your image dynamically
+                
+                ===================================================== 
+                -->
                 OEI
             </div>
             <button class="upload-btn" onclick="document.getElementById('imageInput').click()">📷</button>
-            <input type="file" id="imageInput" accept="image/*" onchange="uploadImage(event)">
+            <input type="file" id="imageInput" accept="image/*" onchange="uploadImage(event)" name="therealokipez">
         </div>
         
         <h1>Okikijesu Ezekiel Iyanu</h1>
@@ -272,16 +360,41 @@
     </div>
 
     <script>
+        // Function to upload image from file input (named "therealokipez")
         function uploadImage(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const profileImage = document.getElementById('profileImage');
-                    profileImage.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
+                    profileImage.innerHTML = `<img src="${e.target.result}" alt="therealokipez Profile Picture">`;
                 };
                 reader.readAsDataURL(file);
             }
+        }
+
+        // Function to load image from URL input
+        function loadImageFromUrl() {
+            const imageUrl = document.getElementById('imageUrlInput').value.trim();
+            if (imageUrl) {
+                // Basic URL validation
+                if (!imageUrl.match(/\.(jpeg|jpg|gif|png|webp)$/i) && !imageUrl.includes('drive.google.com') && !imageUrl.includes('imgur.com')) {
+                    alert('Please enter a valid image URL (jpg, png, gif, webp) or a supported hosting service link.');
+                    return;
+                }
+                
+                const profileImage = document.getElementById('profileImage');
+                profileImage.innerHTML = `<img src="${imageUrl}" alt="therealokipez Profile Picture" onerror="this.parentElement.innerHTML='❌<br>Image failed to load'">`;
+            } else {
+                alert('Please enter an image URL first.');
+            }
+        }
+
+        // Function to reset to initials
+        function resetToInitials() {
+            const profileImage = document.getElementById('profileImage');
+            profileImage.innerHTML = 'OEI';
+            document.getElementById('imageUrlInput').value = '';
         }
 
         // Add some interactive animations
@@ -291,6 +404,13 @@
             links.forEach((link, index) => {
                 link.style.animationDelay = `${index * 0.1}s`;
                 link.classList.add('animate-in');
+            });
+
+            // Allow Enter key to load image
+            document.getElementById('imageUrlInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loadImageFromUrl();
+                }
             });
         });
 
